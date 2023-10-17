@@ -1,0 +1,61 @@
+# depslib dependency file v1.0
+1697508461 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\inputs.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"inputs.h"
+
+1697506130 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\inputs.h
+
+1697553577 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\menus.c
+	<stdio.h>
+	<stdlib.h>
+	"inputs.h"
+
+1697552029 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\main.c
+	<stdio.h>
+	<stdlib.h>
+	"menus.h"
+	"inputs.h"
+	"controller.h"
+	"LinkedList.h"
+
+1697551838 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\menus.h
+
+1697552640 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\compras.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"compras.h"
+
+1697552667 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\compras.h
+
+1697515986 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\linkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+
+1697553181 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\linkedlist.h
+
+1697553704 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\controller.c
+	<stdio.h>
+	<stdlib.h>
+	"controller.h"
+	"parser.h"
+	"compras.h"
+	"menus.h"
+
+1697551611 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\controller.h
+	"LinkedList.h"
+
+1697509125 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"compras.h"
+	"parser.h"
+	"LinkedList.h"
+
+1697508528 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\gestiondecompras_c\parser.h
+	"LinkedList.h"
+
