@@ -2,15 +2,15 @@
 #define CONTROLLER_H_INCLUDED
 #include "LinkedList.h"
 
-int controller_cargarArchivoDesdeTexto(char* path, Linkedlist* arrayListaCompras);
-int controller_imprimirLista(Linkedlist* arrayListaCompras);
-int controller_asignarTotales(Linkedlist* arrayListaCompras);
-int controller_guardarArchivoDesdeTexto(char* path, Linkedlist* arrayListaCompras);
-int controller_Filtro_Jugueteria(Linkedlist* arrayListaCompras);
-int controller_Filtro_Electronica(Linkedlist* arrayListaCompras);
-int controller_Filtro_Indumentaria(Linkedlist* arrayListaCompras);
-int controller_Filtro_Calzado(Linkedlist* arrayListaCompras);
-int controller_ordenarLista(Linkedlist* arrayListaCompras);
+int controller_loadFileFromText(char* path, Linkedlist* arrayList);
+int controller_printList(Linkedlist* arrayList);
+int controller_assignTotals(Linkedlist* arrayList);
+int controller_saveFileFromText(char* path, Linkedlist* arrayList);
+int controller_filter_Jugueteria(Linkedlist* arrayList);
+int controller_filter_Electronica(Linkedlist* arrayList);
+int controller_filter_Indumentaria(Linkedlist* arrayList);
+int controller_filter_Calzado(Linkedlist* arrayList);
+int controller_sortList(Linkedlist* arrayList);
 
 #endif // CONTROLLER_H_INCLUDED
 

@@ -3,309 +3,456 @@
 #include <string.h>
 #include "compras.h"
 
-eCompras* newCompra()
+/**
+ * @brief Crea una nueva instancia de la estructura "eCompras" y la inicializa con valores predeterminados.
+ * Esta función aloca memoria dinámica para una nueva instancia de la estructura "eCompras" y la inicializa con valores predeterminados.
+ * @return Puntero a la nueva instancia de "eCompras" creada, o NULL en caso de error en la asignación de memoria.
+ */
+eCompras* entity_new()
 {
-    eCompras* unaCompra;
-    unaCompra = (eCompras*)malloc(sizeof(eCompras));
-    if(unaCompra != NULL)
+    eCompras* entity;
+    entity = (eCompras*)malloc(sizeof(eCompras));
+    if(entity != NULL)
     {
-        unaCompra->id_articulo = 0;
-        strcpy(unaCompra->descripcion, " ");
-        unaCompra->tipo = 0;
-        unaCompra->precioUnitario = 0.00;
-        unaCompra->cantidad = 0;
-        unaCompra->totalBulto = 0.00;
+        entity->id_articulo = 0;
+        strcpy(entity->descripcion, " ");
+        entity->tipo = 0;
+        entity->precioUnitario = 0.00;
+        entity->cantidad = 0;
+        entity->totalBulto = 0.00;
     }
-    return unaCompra;
+    return entity;
 }
 
-eCompras* compras_newParametros(char* idStr, char* descripcionStr, char* tipoStr, char* precioUnitarioStr, char* cantidadStr, char* totalBultoStr)
+/**
+ * @brief Crea una nueva instancia de la estructura "eCompras" y la inicializa con valores proporcionados.
+ * Esta función crea una nueva instancia de la estructura "eCompras" y la inicializa con valores proporcionados a través de parámetros.
+ * @param idStr Cadena que representa el ID del artículo.
+ * @param descripcionStr Cadena que representa la descripción del artículo.
+ * @param tipoStr Cadena que representa el tipo del artículo.
+ * @param precioUnitarioStr Cadena que representa el precio unitario del artículo.
+ * @param cantidadStr Cadena que representa la cantidad del artículo.
+ * @param totalBultoStr Cadena que representa el total del bulto del artículo.
+ * @return Puntero a la nueva instancia de "eCompras" creada y inicializada con los valores proporcionados, o NULL en caso de error.
+ */
+eCompras* entity_newParameters(char* idStr, char* descripcionStr, char* tipoStr, char* precioUnitarioStr, char* cantidadStr, char* totalBultoStr)
 {
-    eCompras* unaCompra;
-    unaCompra = newCompra();
-
-    if(unaCompra != NULL)
+    eCompras* entity;
+    entity = entity_new();
+    if(entity != NULL)
     {
-        if( compras_setId(unaCompra, atoi(idStr)) == -1 ||
-            compras_setDescripcion(unaCompra, descripcionStr) == -1 ||
-            compras_setTipo(unaCompra, atoi(tipoStr)) == -1 ||
-            compras_setPrecioUnitario(unaCompra, atof(precioUnitarioStr)) == -1 ||
-            compras_setCantidad(unaCompra, atoi(cantidadStr)) == -1 ||
-            compras_setTotalCompras(unaCompra, atof(totalBultoStr)) == -1 )
+        if( entity_setId(entity, atoi(idStr)) == -1 ||
+            entity_setDescripcion(entity, descripcionStr) == -1 ||
+            entity_setTipo(entity, atoi(tipoStr)) == -1 ||
+            entity_setPrecioUnitario(entity, atof(precioUnitarioStr)) == -1 ||
+            entity_setCantidad(entity, atoi(cantidadStr)) == -1 ||
+            entity_setTotalCompras(entity, atof(totalBultoStr)) == -1 )
         {
-            unaCompra = NULL;
-            compras_deleteCompras(unaCompra);
+            entity = NULL;
+            entity_deleteEntity(entity);
         }
     }
-    return unaCompra;
+    return entity;
 }
 
-void compras_deleteCompras(eCompras* unaCompra)
+/**
+ * @brief Libera la memoria ocupada por una instancia de la estructura "eCompras".
+ * Esta función libera la memoria asignada dinámicamente para una instancia de la estructura "eCompras".
+ * @param entity Puntero a la instancia de "eCompras" cuya memoria se desea liberar.
+ */
+void entity_deleteEntity(eCompras* entity)
 {
-    if(unaCompra != NULL)
+    if(entity != NULL)
     {
-        free(unaCompra);
+        free(entity);
     }
 }
 
-int compras_setId(eCompras* unaCompra, int idArticulo)
+/**
+ * @brief Establece el ID del artículo en una instancia de la estructura "eCompras".
+ * Esta función asigna un valor de ID del artículo a una instancia de la estructura "eCompras".
+ * @param entity Puntero a la instancia de "eCompras" en la que se establecerá el ID.
+ * @param idArticulo El valor del ID del artículo que se asignará a la instancia.
+ * @return Devuelve 0 si se establece correctamente el ID, -1 en caso de error (puntero nulo o ID no válido).
+ */
+int entity_setId(eCompras* entity, int idArticulo)
 {
-    int todoOk = -1;
-
-    if(unaCompra != NULL && idArticulo > 0)
+    int allOk = -1;
+    if(entity != NULL && idArticulo > 0)
     {
-        unaCompra->id_articulo = idArticulo;
-        todoOk = 0;
+        entity->id_articulo = idArticulo;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_getId(eCompras* unaCompra, int* idArticulo)
+/**
+ * @brief Obtiene el ID del artículo de una instancia de la estructura "eCompras".
+ * Esta función obtiene el valor de ID del artículo desde una instancia de la estructura "eCompras" y lo almacena en la variable proporcionada.
+ * @param entity Puntero a la instancia de "eCompras" de la que se obtendrá el ID del artículo.
+ * @param idArticulo Puntero a la variable donde se almacenará el ID del artículo.
+ * @return Devuelve 0 si se obtiene correctamente el ID del artículo, -1 en caso de error (punteros nulos).
+ */
+int entity_getId(eCompras* entity, int* idArticulo)
 {
-    int todoOk = -1;
-    if(unaCompra != NULL && idArticulo != NULL)
+    int allOk = -1;
+    if(entity != NULL && idArticulo != NULL)
     {
-        *idArticulo = unaCompra->id_articulo;
-        todoOk = 0;
+        *idArticulo = entity->id_articulo;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_setDescripcion(eCompras* unaCompra, char* descripcion)
+/**
+ * @brief Establece la descripción de un artículo en una instancia de la estructura "eCompras".
+ * Esta función asigna una descripción de artículo a una instancia de la estructura "eCompras".
+ * @param entity Puntero a la instancia de "eCompras" en la que se establecerá la descripción.
+ * @param descripcion La cadena de caracteres que representa la descripción del artículo.
+ * @return Devuelve 0 si se establece correctamente la descripción, -1 en caso de error (puntero nulo).
+ */
+int entity_setDescripcion(eCompras* entity, char* descripcion)
 {
-	int todoOk = -1;
-	if(unaCompra != NULL)
+	int allOk = -1;
+	if(entity != NULL)
 	{
-		strcpy(unaCompra->descripcion, descripcion);
-        todoOk = 0;
+		strcpy(entity->descripcion, descripcion);
+        allOk = 0;
 	}
-    return todoOk;
+    return allOk;
 }
 
-int compras_getDescripcion(eCompras* unaCompra, char* descripcion)
+/**
+ * @brief Obtiene la descripción de un artículo desde una instancia de la estructura "eCompras".
+ * Esta función obtiene la descripción de un artículo desde una instancia de la estructura "eCompras" y la almacena en la cadena de caracteres proporcionada.
+ * @param entity Puntero a la instancia de "eCompras" de la que se obtendrá la descripción.
+ * @param descripcion Puntero a la cadena de caracteres donde se almacenará la descripción del artículo.
+ * @return Devuelve 0 si se obtiene correctamente la descripción, -1 en caso de error (punteros nulos).
+ */
+int entity_getDescripcion(eCompras* entity, char* descripcion)
 {
-	int todoOk = -1;
-	if(unaCompra != NULL && descripcion != NULL)
+	int allOk = -1;
+	if(entity != NULL && descripcion != NULL)
 	{
-		strcpy(descripcion, unaCompra->descripcion);
-		todoOk = 0;
+		strcpy(descripcion, entity->descripcion);
+		allOk = 0;
 	}
-	return todoOk;
+	return allOk;
 }
 
-int compras_setTipo(eCompras* unaCompra, int tipo)
+/**
+ * @brief Establece el tipo de artículo en una instancia de la estructura "eCompras".
+ * Esta función asigna un valor de tipo de artículo a una instancia de la estructura "eCompras".
+ * @param entity Puntero a la instancia de "eCompras" en la que se establecerá el tipo.
+ * @param tipo El valor del tipo de artículo que se asignará a la instancia.
+ * @return Devuelve 0 si se establece correctamente el tipo, -1 en caso de error (puntero nulo o tipo no válido).
+ */
+int entity_setTipo(eCompras* entity, int tipo)
 {
-    int todoOk = -1;
-    if(unaCompra != NULL && tipo > 0)
+    int allOk = -1;
+    if(entity != NULL && tipo > 0)
     {
-        unaCompra->tipo = tipo;
-        todoOk = 0;
+        entity->tipo = tipo;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_getTipo(eCompras* unaCompra, int* tipo)
+/**
+ * @brief Obtiene el tipo de artículo de una instancia de la estructura "eCompras".
+ * Esta función obtiene el valor del tipo de artículo desde una instancia de la estructura "eCompras" y lo almacena en la variable proporcionada.
+ * @param entity Puntero a la instancia de "eCompras" de la que se obtendrá el tipo de artículo.
+ * @param tipo Puntero a la variable donde se almacenará el tipo de artículo.
+ * @return Devuelve 0 si se obtiene correctamente el tipo de artículo, -1 en caso de error (punteros nulos).
+ */
+int entity_getTipo(eCompras* entity, int* tipo)
 {
-    int todoOk = -1;
-    if(unaCompra != NULL && tipo != NULL)
+    int allOk = -1;
+    if(entity != NULL && tipo != NULL)
     {
-        *tipo = unaCompra->tipo;
-        todoOk = 0;
+        *tipo = entity->tipo;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_setPrecioUnitario(eCompras* unaCompra, float precioUnitario)
+/**
+ * @brief Establece el precio unitario de un artículo en una instancia de la estructura "eCompras".
+ * Esta función asigna un valor de precio unitario a una instancia de la estructura "eCompras".
+ * @param entity Puntero a la instancia de "eCompras" en la que se establecerá el precio unitario.
+ * @param precioUnitario El valor del precio unitario del artículo que se asignará a la instancia.
+ * @return Devuelve 0 si se establece correctamente el precio unitario, -1 en caso de error (puntero nulo o precio no válido).
+ */
+int entity_setPrecioUnitario(eCompras* entity, float precioUnitario)
 {
-    int todoOk = -1;
-    if(unaCompra != NULL && precioUnitario > 0)
+    int allOk = -1;
+    if(entity != NULL && precioUnitario > 0)
     {
-        unaCompra->precioUnitario = precioUnitario;
-        todoOk = 0;
+        entity->precioUnitario = precioUnitario;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_getPrecioUnitario(eCompras* unaCompra, float* precioUnitario)
+/**
+ * @brief Obtiene el precio unitario de un artículo desde una instancia de la estructura "eCompras".
+ * Esta función obtiene el valor del precio unitario del artículo desde una instancia de la estructura "eCompras" y lo almacena en la variable proporcionada.
+ * @param entity Puntero a la instancia de "eCompras" de la que se obtendrá el precio unitario del artículo.
+ * @param precioUnitario Puntero a la variable donde se almacenará el precio unitario del artículo.
+ * @return Devuelve 0 si se obtiene correctamente el precio unitario, -1 en caso de error (punteros nulos).
+ */
+int entity_getPrecioUnitario(eCompras* entity, float* precioUnitario)
 {
-    int todoOk = -1;
-    if(unaCompra != NULL && precioUnitario != NULL)
+    int allOk = -1;
+    if(entity != NULL && precioUnitario != NULL)
     {
-        *precioUnitario = unaCompra->precioUnitario;
-        todoOk = 0;
+        *precioUnitario = entity->precioUnitario;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_setCantidad(eCompras* unaCompra, int cantidad)
+/**
+ * @brief Establece la cantidad de un artículo en una instancia de la estructura "eCompras".
+ * Esta función asigna un valor de cantidad a una instancia de la estructura "eCompras".
+ * @param entity Puntero a la instancia de "eCompras" en la que se establecerá la cantidad.
+ * @param cantidad El valor de la cantidad del artículo que se asignará a la instancia.
+ * @return Devuelve 0 si se establece correctamente la cantidad, -1 en caso de error (puntero nulo).
+ */
+int entity_setCantidad(eCompras* entity, int cantidad)
 {
-    int todoOk = -1;
-    if(unaCompra != NULL)
+    int allOk = -1;
+    if(entity != NULL)
     {
-        unaCompra->cantidad = cantidad;
-        todoOk = 0;
+        entity->cantidad = cantidad;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_getCantidad(eCompras* unaCompra, int* cantidad)
+/**
+ * @brief Obtiene la cantidad de un artículo desde una instancia de la estructura "eCompras".
+ * Esta función obtiene el valor de cantidad del artículo desde una instancia de la estructura "eCompras" y lo almacena en la variable proporcionada.
+ * @param entity Puntero a la instancia de "eCompras" de la que se obtendrá la cantidad del artículo.
+ * @param cantidad Puntero a la variable donde se almacenará la cantidad del artículo.
+ * @return Devuelve 0 si se obtiene correctamente la cantidad, -1 en caso de error (punteros nulos).
+ */
+int entity_getCantidad(eCompras* entity, int* cantidad)
 {
-    int todoOk = -1;
-    if(unaCompra != NULL && cantidad != NULL)
+    int allOk = -1;
+    if(entity != NULL && cantidad != NULL)
     {
-        *cantidad = unaCompra->cantidad;
+        *cantidad = entity->cantidad;
 
-        todoOk = 0;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_setTotalCompras(eCompras* unaCompra, float totalBulto)
+/**
+ * @brief Establece el total de compras de un artículo en una instancia de la estructura "eCompras".
+ * Esta función asigna un valor de total de compras a una instancia de la estructura "eCompras".
+ * @param entity Puntero a la instancia de "eCompras" en la que se establecerá el total de compras.
+ * @param totalBulto El valor del total de compras del artículo que se asignará a la instancia.
+ * @return Devuelve 0 si se establece correctamente el total de compras, -1 en caso de error (puntero nulo o total no válido).
+ */
+int entity_setTotalCompras(eCompras* entity, float totalBulto)
 {
-    int todoOk = -1;
-    if(unaCompra != NULL && totalBulto >= 0)
+    int allOk = -1;
+    if(entity != NULL && totalBulto >= 0)
     {
-        unaCompra->totalBulto = totalBulto;
-        todoOk = 0;
+        entity->totalBulto = totalBulto;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_getTotalCompras(eCompras* unaCompra, float* totalBulto)
+/**
+ * @brief Obtiene el total de compras de un artículo desde una instancia de la estructura "eCompras".
+ * Esta función obtiene el valor del total de compras del artículo desde una instancia de la estructura "eCompras" y lo almacena en la variable proporcionada.
+ * @param entity Puntero a la instancia de "eCompras" de la que se obtendrá el total de compras del artículo.
+ * @param totalBulto Puntero a la variable donde se almacenará el total de compras del artículo.
+ * @return Devuelve 0 si se obtiene correctamente el total de compras, -1 en caso de error (punteros nulos).
+ */
+int entity_getTotalCompras(eCompras* entity, float* totalBulto)
 {
-    int todoOk = -1;
-    if(unaCompra != NULL && totalBulto != NULL)
+    int allOk = -1;
+    if(entity != NULL && totalBulto != NULL)
     {
-        *totalBulto = unaCompra->totalBulto;
-        todoOk = 0;
+        *totalBulto = entity->totalBulto;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-void compras_mostrarEncabezado()
+/**
+ * @brief Muestra el encabezado de la tabla de compras.
+ * Esta función imprime en la consola el encabezado de la tabla de compras con las columnas correspondientes.
+ */
+void entity_showHeader()
 {
     printf("\n-----------------------------------------------------------------------------------------------------------\n");
     printf("| ID  |  DESCRIPCION               | TIPO            | PRECIO UNITARIO      | CANTIDAD   | TOTAL SERVICIO |\n");
     printf("-----------------------------------------------------------------------------------------------------------\n");
 }
 
-int compras_mostrarUnaCompra(eCompras* unaCompra)
+/**
+ * @brief Muestra los detalles de un artículo de compra.
+ * Esta función muestra en la consola los detalles de un artículo de compra, incluyendo su ID, descripción, tipo, precio unitario, cantidad y total de servicio.
+ * @param entity Puntero a la instancia de "eCompras" cuyos detalles se mostrarán.
+ * @return Devuelve 1 si se muestra correctamente el artículo, 0 en caso de error (puntero nulo).
+ */
+int entity_showOneEntity(eCompras* entity)
 {
-    int todoOk = 0;
-    eCompras auxCompra;
-    if(unaCompra != NULL)
+    int allOk = 0;
+    eCompras auxEntity;
+    if(entity != NULL)
     {
-        compras_getId(unaCompra, &auxCompra.id_articulo);
-        compras_getDescripcion(unaCompra, auxCompra.descripcion);
-        compras_getTipo(unaCompra, &auxCompra.tipo);
-        compras_getPrecioUnitario(unaCompra, &auxCompra.precioUnitario);
-        compras_getCantidad(unaCompra, &auxCompra.cantidad);
-        compras_getTotalCompras(unaCompra, &auxCompra.totalBulto);
+        entity_getId(entity, &auxEntity.id_articulo);
+        entity_getDescripcion(entity, auxEntity.descripcion);
+        entity_getTipo(entity, &auxEntity.tipo);
+        entity_getPrecioUnitario(entity, &auxEntity.precioUnitario);
+        entity_getCantidad(entity, &auxEntity.cantidad);
+        entity_getTotalCompras(entity, &auxEntity.totalBulto);
 
-        printf("| %-3d | %-26s | %-15d | %-20.2f | %-10d | %-15.2f|\n", auxCompra.id_articulo, auxCompra.descripcion, auxCompra.tipo, auxCompra.precioUnitario, auxCompra.cantidad, auxCompra.totalBulto);
+        printf("| %-3d | %-26s | %-15d | %-20.2f | %-10d | %-15.2f|\n", auxEntity.id_articulo, auxEntity.descripcion, auxEntity.tipo, auxEntity.precioUnitario, auxEntity.cantidad, auxEntity.totalBulto);
         printf("-----------------------------------------------------------------------------------------------------------\n");
-        todoOk = 1;
+        allOk = 1;
     }
-    return todoOk;
+    return allOk;
 }
 
-void* compras_map(void* elemento)
+/**
+ * @brief Calcula el total de compras y lo asigna a cada artículo de compra en la lista.
+ * Esta función calcula el total de compras para cada artículo de compra en la lista y lo asigna a cada instancia de "eCompras".
+ * @param element Puntero a la instancia de "eCompras" en la lista.
+ * @return Puntero a la instancia de "eCompras" con el total de compras calculado.
+ */
+void* entity_map(void* element)
 {
-    eCompras* unaCompra;
+    eCompras* entity;
     int cantidad;
     float precioUnitario;
     float totalBulto;
+    entity = (eCompras*) element;
+    entity_getCantidad(entity, &cantidad);
+    entity_getPrecioUnitario(entity, &precioUnitario);
 
-    unaCompra = (eCompras*) elemento;
-    compras_getCantidad(unaCompra, &cantidad);
-    compras_getPrecioUnitario(unaCompra, &precioUnitario);
-
-    if(unaCompra != NULL)
+    if(entity != NULL)
     {
         totalBulto = (float)cantidad * precioUnitario;
-        compras_setTotalCompras(unaCompra, totalBulto);
+        entity_setTotalCompras(entity, totalBulto);
     }
-    return unaCompra;
+    return entity;
 }
 
-int compras_filtrarPorJugueteria(void* elemento)
+/**
+ * @brief Filtra artículos de juguetería en la lista.
+ * Esta función se utiliza como función de filtro para identificar artículos de juguetería en la lista de compras.
+ * @param element Puntero a la instancia de "eCompras" en la lista.
+ * @return Devuelve 1 si el artículo es de juguetería, 0 en caso contrario o en caso de error (puntero nulo).
+ */
+int entity_filterByJugueteria(void* element)
 {
-    int todoOk = 0;
-    eCompras* unaCompra = (eCompras*) elemento;
-    if(unaCompra != NULL)
+    int allOk = 0;
+    eCompras* entity = (eCompras*) element;
+    if(entity != NULL)
     {
-        if(unaCompra->tipo == 1)
+        if(entity->tipo == 1)
         {
-            todoOk = 1;
+            allOk = 1;
         }
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_filtrarPorElectronica(void* elemento)
+/**
+ * @brief Filtra artículos de electrónica en la lista.
+ * Esta función se utiliza como función de filtro para identificar artículos de electrónica en la lista de compras.
+ * @param element Puntero a la instancia de "eCompras" en la lista.
+ * @return Devuelve 1 si el artículo es de electrónica, 0 en caso contrario o en caso de error (puntero nulo).
+ */
+int entity_filterByElectronica(void* element)
 {
-    int todoOk = 0;
-    eCompras* unaCompra = (eCompras*) elemento;
-    if(unaCompra != NULL)
+    int allOk = 0;
+    eCompras* entity = (eCompras*) element;
+    if(entity != NULL)
     {
-        if(unaCompra->tipo == 2)
+        if(entity->tipo == 2)
         {
-            todoOk = 1;
+            allOk = 1;
         }
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_filtrarPorIndumentaria(void* elemento)
+/**
+ * @brief Filtra artículos de indumentaria en la lista.
+ * Esta función se utiliza como función de filtro para identificar artículos de indumentaria en la lista de compras.
+ * @param element Puntero a la instancia de "eCompras" en la lista.
+ * @return Devuelve 1 si el artículo es de indumentaria, 0 en caso contrario o en caso de error (puntero nulo).
+ */
+int entity_filterByIndumentaria(void* element)
 {
-    int todoOk = 0;
-    eCompras* unaCompra = (eCompras*) elemento;
-    if(unaCompra != NULL)
+    int allOk = 0;
+    eCompras* entity = (eCompras*) element;
+    if(entity != NULL)
     {
-        if(unaCompra->tipo == 3)
+        if(entity->tipo == 3)
         {
-            todoOk = 1;
+            allOk = 1;
         }
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_filtrarPorCalzado(void* elemento)
+/**
+ * @brief Filtra artículos de calzado en la lista.
+ * Esta función se utiliza como función de filtro para identificar artículos de calzado en la lista de compras.
+ * @param element Puntero a la instancia de "eCompras" en la lista.
+ * @return Devuelve 1 si el artículo es de calzado, 0 en caso contrario o en caso de error (puntero nulo).
+ */
+int entity_filterByCalzado(void* element)
 {
-    int todoOk = 0;
-    eCompras* unaCompra = (eCompras*) elemento;
-    if(unaCompra != NULL)
+    int allOk = 0;
+    eCompras* entity = (eCompras*) element;
+    if(entity != NULL)
     {
-        if(unaCompra->tipo == 4)
+        if(entity->tipo == 4)
         {
-            todoOk = 1;
+            allOk = 1;
         }
     }
-    return todoOk;
+    return allOk;
 }
 
-int compras_ordenarPorDescripcion(void* item1, void* item2)
+/**
+ * @brief Compara dos artículos de compra por descripción para ordenamiento.
+ * Esta función se utiliza como función de comparación para ordenar dos artículos de compra por su descripción en orden alfabético.
+ * @param item1 Puntero a la primera instancia de "eCompras" para comparar.
+ * @param item2 Puntero a la segunda instancia de "eCompras" para comparar.
+ * @return Devuelve 1 si el primer artículo es mayor en orden alfabético, -1 si es menor y 0 si son iguales o en caso de error (punteros nulos).
+ */
+int entity_sortByDescripcion(void* item1, void* item2)
 {
-    int todoOk = 0;
-    eCompras* compra1 = (eCompras*) item1;
-    eCompras* compra2 = (eCompras*) item2;
-    char descripcion1[50];
-    char descripcion2[50];
-
-    if(compra1 != NULL && compra2 != NULL)
+    int allOk = 0;
+    eCompras* entity1 = (eCompras*) item1;
+    eCompras* entity2 = (eCompras*) item2;
+    char description1[50];
+    char description2[50];
+    if(entity1 != NULL && entity2 != NULL)
     {
-        if(compras_getDescripcion(compra1, descripcion1) == 0 && compras_getDescripcion(compra2, descripcion2) == 0)
+        if(entity_getDescripcion(entity1, description1) == 0 && entity_getDescripcion(entity2, description2) == 0)
         {
-            if(strcmp(descripcion1, descripcion2) > 0)
+            if(strcmp(description1, description2) > 0)
             {
-                todoOk = 1;
+                allOk = 1;
             }
-            else if(strcmp(descripcion1, descripcion2) < 0)
+            else if(strcmp(description1, description2) < 0)
             {
-                todoOk = -1;
+                allOk = -1;
             }
         }
     }
-
-    return todoOk;
+    return allOk;
 }

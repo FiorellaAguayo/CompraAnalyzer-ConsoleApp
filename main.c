@@ -7,20 +7,20 @@
 
 int main()
 {
-    int seguir = 0;
+    int stop = 0;
     int flag = 0;
-    char nombreArchivo[30];
+    char fileName[30];
     Linkedlist* listaDeCompras = ll_newLinkedList();
 
-    while(seguir == 0)
+    while(stop == 0)
     {
         switch(menu())
         {
             case 1:
-                pedirArchivoCSV(nombreArchivo, "\nPor favor, ingrese el nombre del archivo con extension .csv: ", "\nEl nombre no es valido.");
-                if(controller_cargarArchivoDesdeTexto(nombreArchivo, listaDeCompras))
+                askForCSVFile(fileName, "\nPor favor, ingrese el nombre del archivo con extension .csv: ", "\nEl nombre no es valido.\n");
+                if(controller_loadFileFromText(fileName, listaDeCompras))
                 {
-                    printf("\nEl archivo '%s' se ha cargado correctamente.", nombreArchivo);
+                    printf("\nEl archivo '%s' se ha cargado correctamente.", fileName);
                     flag = 1;
                 }
                 else
@@ -32,7 +32,7 @@ int main()
             case 2:
                 if(flag)
                 {
-                    if(controller_imprimirLista(listaDeCompras))
+                    if(controller_printList(listaDeCompras))
                     {
                         printf("\nLa lista se imprimio exitosamente.");
                     }
@@ -50,7 +50,7 @@ int main()
             case 3:
                 if(flag)
                 {
-                    if(controller_asignarTotales(listaDeCompras))
+                    if(controller_assignTotals(listaDeCompras))
                     {
                         printf("\nTotales asignados con exito!");
                     }
@@ -71,7 +71,7 @@ int main()
                     switch(menuFiltros())
                     {
                         case 1:
-                            if(controller_Filtro_Jugueteria(listaDeCompras))
+                            if(controller_filter_Jugueteria(listaDeCompras))
                             {
                                 printf("\nSe cargo la lista filtrada de jugueteria.");
                             }
@@ -82,7 +82,7 @@ int main()
                             break;
 
                         case 2:
-                            if(controller_Filtro_Electronica(listaDeCompras))
+                            if(controller_filter_Electronica(listaDeCompras))
                             {
                                 printf("\nSe cargo la lista filtrada de electronica.");
                             }
@@ -93,7 +93,7 @@ int main()
                             break;
 
                         case 3:
-                            if(controller_Filtro_Indumentaria(listaDeCompras))
+                            if(controller_filter_Indumentaria(listaDeCompras))
                             {
                                 printf("\nSe cargo la lista filtrada de indumentaria.");
                             }
@@ -104,7 +104,7 @@ int main()
                             break;
 
                         case 4:
-                            if(controller_Filtro_Calzado(listaDeCompras))
+                            if(controller_filter_Calzado(listaDeCompras))
                             {
                                 printf("\nSe cargo la lista filtrada de calzado.");
                             }
@@ -124,7 +124,7 @@ int main()
             case 5:
                 if(flag)
                 {
-                    if(controller_ordenarLista(listaDeCompras))
+                    if(controller_sortList(listaDeCompras))
                     {
                         printf("\nSe ordeno la lista exitosamente.");
                     }
@@ -142,8 +142,8 @@ int main()
             case 6:
                 if(flag)
                 {
-                    pedirArchivoCSV(nombreArchivo, "¿Con que nombre desea guardar la lista? (.csv: ", "\nEl nombre no es valido. ");
-                    if(controller_guardarArchivoDesdeTexto(nombreArchivo, listaDeCompras))
+                    askForCSVFile(fileName, "¿Con que nombre desea guardar la lista? (.csv: ", "\nEl nombre no es valido. ");
+                    if(controller_saveFileFromText(fileName, listaDeCompras))
                     {
                         printf("\nSe guardo la lista exitosamente!");
                     }
@@ -160,7 +160,7 @@ int main()
 
             case 7:
                 printf("\nGracias por utilizar este programa!");
-                seguir = 1;
+                stop = 1;
                 break;
         }
     }
