@@ -18,7 +18,7 @@ int menu()
 	printf("\n2. Imprimir lista. ");
 	printf("\n3. Asignar totales.");
 	printf("\n4. Filtrar por tipo.");
-	printf("\n5. Mostrar compras.");
+	printf("\n5. Ordenar compras (alfabeticamente).");
 	printf("\n6. Guardar compras.");
 	printf("\n7. Salir.");
 

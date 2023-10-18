@@ -1,6 +1,6 @@
 id,descripcion,tipo,precioUnitario,cantidad,totalBulto
-50,Pelota,1,250.000000,200,0.00
-56,Bicicleta MountanBike,1,86580.000000,50,0.00
-60,Pileta Lona 2x2,1,60000.000000,10,0.00
-65,Roller unisex,1,25645.000000,30,0.00
-73,Monopatin,1,12500.000000,25,0.00
+50,Pelota,1,250.00,200,50000.00
+56,Bicicleta MountanBike,1,86580.00,50,4329000.00
+60,Pileta Lona 2x2,1,60000.00,10,600000.00
+65,Roller unisex,1,25645.00,30,769350.00
+73,Monopatin,1,12500.00,25,312500.00
